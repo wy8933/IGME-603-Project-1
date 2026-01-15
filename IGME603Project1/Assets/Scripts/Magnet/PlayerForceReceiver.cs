@@ -9,9 +9,6 @@ public sealed class PlayerForceReceiver : MonoBehaviour
 
     [Min(0f)] public float maxTotalForce = 100f;
 
-    [Tooltip("Extra damping applied to velocity each FixedUpdate. 0 = none.")]
-    public float velocityDamping = 0f;
-
     private Rigidbody2D _rb;
 
     private readonly List<MagnetField2D> _activeFields = new();
@@ -46,11 +43,6 @@ public sealed class PlayerForceReceiver : MonoBehaviour
 
         _rb.AddForce(totalForce, ForceMode2D.Force);
 
-        if (velocityDamping > 0f)
-        {
-            float factor = Mathf.Clamp01(1f - velocityDamping * Time.fixedDeltaTime);
-            _rb.linearVelocity *= factor;
-        }
     }
 
     public void SetPlayerState(MagnetState newState)
