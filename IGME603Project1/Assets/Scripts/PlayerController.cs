@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("How far the right stick needs to be pushed up or down to activate the magnet.\nShould be a value between 0 (stick just barely pushed up or down) and 1 (stick pushed all the way up or down).")]
     [SerializeField] private const float _magnetJoystickThreshold = 0.1f;
 
+    [SerializeField]
     private MagnetState _magnetState = MagnetState.Neutral;
 
     private Rigidbody2D _rigidbody;
