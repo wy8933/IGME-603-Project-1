@@ -57,8 +57,7 @@ public sealed class MagnetField2D : MonoBehaviour
         }
         else
         {
-            float rad = pushDirectionAngleDeg * Mathf.Deg2Rad;
-            dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+            dir = -(fieldPos - playerPos).normalized;
         }
 
         float t = 1f - (dist / effectRadius);
