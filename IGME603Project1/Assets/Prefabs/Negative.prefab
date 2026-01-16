@@ -83,7 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldState: 2
   pushDirectionAngleDeg: -90
-  effectRadius: 10
+  effectRadius: 3
   baseStrength: 200
   strongerNearCenter: 1
   autoSyncTriggerRadius: 1
