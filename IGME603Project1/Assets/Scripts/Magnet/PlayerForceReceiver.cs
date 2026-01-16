@@ -13,6 +13,8 @@ public sealed class PlayerForceReceiver : MonoBehaviour
 
     private readonly List<MagnetField2D> _activeFields = new();
 
+    private Vector2 _force = Vector2.zero;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -42,12 +44,17 @@ public sealed class PlayerForceReceiver : MonoBehaviour
         }
 
         _rb.AddForce(totalForce, ForceMode2D.Force);
-
+        _force = totalForce;
     }
 
     public void SetPlayerState(MagnetState newState)
     {
         _playerController.SetMagnetState(newState);
+    }
+
+    public Vector2 GetForce()
+    {
+        return _force;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
