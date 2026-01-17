@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 8286895597759562676}
   m_Layer: 0
   m_Name: Negative
-  m_TagString: Untagged
+  m_TagString: Surface
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

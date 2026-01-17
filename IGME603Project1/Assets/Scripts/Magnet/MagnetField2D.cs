@@ -49,11 +49,14 @@ public sealed class MagnetField2D : MonoBehaviour
 
         bool sameSign = (playerState == fieldState);
 
-        Vector2 dir;
+        Vector2 dir = Vector2.zero;
 
         if (!sameSign)
         {
-            dir = (fieldPos - playerPos).normalized;
+            if (!PlayerForceReceiver.Instance.GetIsTouchingSurface()) 
+            {
+                dir = (fieldPos - playerPos).normalized;
+            }
         }
         else
         {
