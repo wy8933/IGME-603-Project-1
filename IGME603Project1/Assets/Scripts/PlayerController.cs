@@ -6,11 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     [Tooltip("How far the right stick needs to be pushed up or down to activate the magnet.\nShould be a value between 0 (stick just barely pushed up or down) and 1 (stick pushed all the way up or down).")]
     [SerializeField]
-    private const float MAGNET_JOYSTICK_THRESHOLD = 0.1f;
+    private float MAGNET_JOYSTICK_THRESHOLD = 0.1f;
 
     [Tooltip("Speed of the player when crawling along a magnetic surface.")]
     [SerializeField]
-    private const float CRAWL_SPEED = 2.0f;
+    private float CRAWL_SPEED = 100.0f;
 
     [SerializeField]
     private MagnetState _magnetState = MagnetState.Neutral;
@@ -54,46 +54,45 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //Handle player movement input along a wall they are being pushed or pulled into.
-        if (_movementInput != Vector2.zero)
+        if (_movementInput != Vector2.zero && PlayerForceReceiver.Instance.GetIsTouchingSurface())
         {
             //Set up the filter to only track walls the character is being forced into
             Vector2 totalForce = _playerForceReceiver.GetForce();
-            if (totalForce != Vector2.zero)
+            ContactFilter2D filter = new ContactFilter2D();
+            float forceAngle = Mathf.Atan2(totalForce.y, totalForce.x) * 180 / Mathf.PI;
+            float filterAngle = forceAngle + 180.0f; //the normals are opposite to the force
+            filter.SetNormalAngle(filterAngle - 90.0f, filterAngle + 90.0f); //check for normals within 90 degrees
+
+            //Gather the player character's contact points matching the above filter
+            List<ContactPoint2D> contacts = new List<ContactPoint2D>();
+            _rigidbody.GetContacts(contacts);
+
+            Vector2 fastestMotion = Vector2.zero;
+
+            foreach (ContactPoint2D contact in contacts)
             {
-                ContactFilter2D filter = new ContactFilter2D();
-                float forceAngle = Mathf.Atan2(totalForce.y, totalForce.x) * 180 / Mathf.PI;
-                float filterAngle = forceAngle + 180.0f; //the normals are opposite to the force
-                filter.SetNormalAngle(filterAngle - 90.0f, filterAngle + 90.0f); //check for normals within 90 degrees
+                //Get the vector perpendicular to the collision normal
+                //(this will be parallel to the wall)
+                Vector2 normalPerpendicular = Vector2.Perpendicular(contact.normal);
 
-                //Gather the player character's contact points matching the above filter
-                List<ContactPoint2D> contacts = new List<ContactPoint2D>();
-                _rigidbody.GetContacts(filter, contacts);
+                //Project the player's input onto that vector to get the crawling motion
+                Vector2 motion = normalPerpendicular * Vector2.Dot(_movementInput, normalPerpendicular);
 
-                Vector2 fastestMotion = Vector2.zero;
-                foreach (ContactPoint2D contact in contacts)
+                //If there are multiple possible walls to crawl along, only crawl along one.
+                //Choose the one that would move the player character the fastest.
+                //This crawling direction should most closely match the player's input.
+                if (fastestMotion.magnitude < motion.magnitude)
                 {
-                    //Get the vector perpendicular to the collision normal
-                    //(this will be parallel to the wall)
-                    Vector2 normalPerpendicular = Vector2.Perpendicular(contact.normal);
-
-                    //Project the player's input onto that vector to get the crawling motion
-                    Vector2 motion = normalPerpendicular * Vector2.Dot(_movementInput, normalPerpendicular);
-
-                    //If there are multiple possible walls to crawl along, only crawl along one.
-                    //Choose the one that would move the player character the fastest.
-                    //This crawling direction should most closely match the player's input.
-                    if (fastestMotion.magnitude < motion.magnitude)
-                    {
-                        fastestMotion = motion;
-                    }
-                }
-
-                if (fastestMotion != Vector2.zero)
-                {
-                    _rigidbody.totalForce = Vector2.zero;
-                    _rigidbody.AddForce(fastestMotion * CRAWL_SPEED);
+                    fastestMotion = motion;
                 }
             }
+
+            if (fastestMotion != Vector2.zero)
+            {
+                _rigidbody.totalForce = Vector2.zero;
+                _rigidbody.AddForce(fastestMotion * CRAWL_SPEED);
+            }
+            
         }
     }
 

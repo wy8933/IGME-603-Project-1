@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public sealed class PlayerForceReceiver : MonoBehaviour
 {
+    public static PlayerForceReceiver Instance { get; private set; }
+
     [SerializeField]
     private PlayerController _playerController;
 
@@ -15,9 +17,20 @@ public sealed class PlayerForceReceiver : MonoBehaviour
 
     private Vector2 _force = Vector2.zero;
 
+    private bool _isTouchingSurface = false;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else 
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
@@ -44,7 +57,13 @@ public sealed class PlayerForceReceiver : MonoBehaviour
         }
 
         _rb.AddForce(totalForce, ForceMode2D.Force);
+
         _force = totalForce;
+    }
+
+    public bool GetIsTouchingSurface() 
+    {
+        return _isTouchingSurface;
     }
 
     public void SetPlayerState(MagnetState newState)
@@ -71,6 +90,22 @@ public sealed class PlayerForceReceiver : MonoBehaviour
         if (other.TryGetComponent(out MagnetField2D field))
         {
             _activeFields.Remove(field);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Surface")) 
+        {
+            _isTouchingSurface = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Surface"))
+        {
+            _isTouchingSurface = false;
         }
     }
 }
