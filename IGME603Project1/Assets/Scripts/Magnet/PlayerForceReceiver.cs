@@ -58,7 +58,7 @@ public class PlayerForceReceiver : MonoBehaviour
 
         _rb.AddForce(totalForce, ForceMode2D.Force);
 
-        _force = totalForce;
+        _force += totalForce;
     }
 
     public bool GetIsTouchingSurface() 
