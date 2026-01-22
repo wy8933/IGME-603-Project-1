@@ -4,6 +4,10 @@ using static UnityEngine.GraphicsBuffer;
 [RequireComponent(typeof(Rigidbody2D))]
 public sealed class PlayerOrbitReceiver : MonoBehaviour
 {
+
+    [SerializeField]
+    private PlayerController _playerController;
+
     [Header("Orbit")]
     public bool orbitEnabled = true;
     [Min(0f)] public float orbitSpeed = 6f;
@@ -26,6 +30,7 @@ public sealed class PlayerOrbitReceiver : MonoBehaviour
     private void FixedUpdate()
     {
         if (!orbitEnabled) return;
+        if (!(_playerController.GetMagnetState() == MagnetState.Neutral)) return;
         if (requireOrbitFieldTrigger && _activeOrbitField == null) return;
 
         // Orbit center position
