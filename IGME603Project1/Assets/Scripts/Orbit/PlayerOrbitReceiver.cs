@@ -2,7 +2,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public sealed class PlayerOrbitReceiver : MonoBehaviour
+public class PlayerOrbitReceiver : MonoBehaviour
 {
 
     [SerializeField]

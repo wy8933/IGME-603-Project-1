@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public sealed class PlayerForceReceiver : MonoBehaviour
+public class PlayerForceReceiver : MonoBehaviour
 {
     public static PlayerForceReceiver Instance { get; private set; }
 
