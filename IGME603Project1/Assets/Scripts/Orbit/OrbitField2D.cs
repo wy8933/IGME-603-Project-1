@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
-public sealed class OrbitField2D : MonoBehaviour
+public class OrbitField2D : MonoBehaviour
 {
     [Min(0.01f)] public float captureRadius = 3f;
     public bool autoSyncTriggerRadius = true;

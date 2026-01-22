@@ -2,7 +2,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(CircleCollider2D))]
-public sealed class MagnetField2D : MonoBehaviour
+public class MagnetField2D : MonoBehaviour
 {
     public MagnetState fieldState = MagnetState.Positive;
 
