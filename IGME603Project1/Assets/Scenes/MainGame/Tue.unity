@@ -1866,10 +1866,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 915357002079453165, guid: 1115db63b8b885343b2303c9a250cc2b, type: 3}
-      propertyPath: m_GravityScale
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 2471299039473054970, guid: 1115db63b8b885343b2303c9a250cc2b, type: 3}
       propertyPath: m_Name
       value: Player

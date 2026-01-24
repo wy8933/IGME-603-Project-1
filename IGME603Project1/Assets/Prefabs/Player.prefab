@@ -107,7 +107,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 1
   m_AngularDamping: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 0.1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -181,7 +181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6da9f6e368957e4fa1e41098f29819e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MAGNET_JOYSTICK_THRESHOLD: 0.1
+  CRAWL_SPEED: 100
   _magnetState: 0
+  WALL_GRAVITY_SCALE: 0
+  NORMAL_GRAVITY_SCALE: 0.1
 --- !u!114 &8417590289110873865
 MonoBehaviour:
   m_ObjectHideFlags: 0
