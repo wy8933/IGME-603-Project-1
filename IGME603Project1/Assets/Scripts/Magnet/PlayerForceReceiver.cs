@@ -17,6 +17,11 @@ public class PlayerForceReceiver : MonoBehaviour
 
     private Vector2 _force = Vector2.zero;
 
+    // Track all Surface colliders currently touching the player.
+    // This avoids false negatives when the player touches multiple colliders (tiles/edges/corners).
+    private readonly HashSet<Collider2D> _touchingSurfaces = new();
+
+    // Backing bool kept for compatibility with existing calls.
     private bool _isTouchingSurface = false;
 
     private void Awake()
@@ -27,7 +32,7 @@ public class PlayerForceReceiver : MonoBehaviour
         {
             Instance = this;
         }
-        else 
+        else
         {
             Destroy(gameObject);
         }
@@ -58,10 +63,18 @@ public class PlayerForceReceiver : MonoBehaviour
 
         _rb.AddForce(totalForce, ForceMode2D.Force);
 
-        _force += totalForce;
+        // Store the force for other systems (crawl/orbit logic) to reference this frame.
+        // Use assignment so GetForce() represents the current combined field force.
+        _force = totalForce;
+
+        // Remove destroyed colliders so _isTouchingSurface doesn't get stuck true.
+        _touchingSurfaces.RemoveWhere(c => c == null);
+
+        // Derived state: touching any Surface collider means we are touching a surface.
+        _isTouchingSurface = _touchingSurfaces.Count > 0;
     }
 
-    public bool GetIsTouchingSurface() 
+    public bool GetIsTouchingSurface()
     {
         return _isTouchingSurface;
     }
@@ -95,17 +108,31 @@ public class PlayerForceReceiver : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Surface")) 
+        // Use the specific collider from the collision rather than the whole GameObject.
+        // This is important when multiple colliders exist under one object.
+        if (collision.collider != null && collision.collider.CompareTag("Surface"))
         {
+            _touchingSurfaces.Add(collision.collider);
+            _isTouchingSurface = true;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        // Ensures we remain "touching" even if Enter/Exit events happen at seams.
+        if (collision.collider != null && collision.collider.CompareTag("Surface"))
+        {
+            _touchingSurfaces.Add(collision.collider);
             _isTouchingSurface = true;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Surface"))
+        if (collision.collider != null && collision.collider.CompareTag("Surface"))
         {
-            _isTouchingSurface = false;
+            _touchingSurfaces.Remove(collision.collider);
+            _isTouchingSurface = _touchingSurfaces.Count > 0;
         }
     }
 }
