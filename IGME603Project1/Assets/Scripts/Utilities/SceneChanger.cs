@@ -7,4 +7,14 @@ public class SceneChanger : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+    
+    public void AddScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+    }
+
+    public void RemoveScene(string sceneName)
+    {
+        SceneManager.UnloadSceneAsync(sceneName);
+    }
 }
