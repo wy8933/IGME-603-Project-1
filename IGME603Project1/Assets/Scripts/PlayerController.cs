@@ -83,14 +83,14 @@ public class PlayerController : MonoBehaviour
             int bestIndex = -1;
             float bestScore = -Mathf.Infinity;
 
-            // Track whether we are simultaneously attached to a wall and a floor/ceiling (corner case)
+            // Track whether we are simultaneously attached to a wall and a floor/ceiling 
             bool hasWall = false;
             bool hasFloorOrCeiling = false;
 
-            // Combined surface motion when multiple valid surfaces exist (corner => allow both axes)
+            // Combined surface motion when multiple valid surfaces exist
             Vector2 combinedMotion = Vector2.zero;
 
-            // Only count contacts whose normals oppose the force direction (meaning: this is the surface we are being pressed into)
+            // Only count contacts whose normals oppose the force direction
             const float attachThreshold = 0.35f;
 
             // Track the best wall contact and the best floor/ceiling contact separately
@@ -115,14 +115,13 @@ public class PlayerController : MonoBehaviour
                 //Calculate the surface using dot product to determine whether player is on wall or floor
                 Vector2 n_i = contacts[i].normal.normalized;
                 float upDot_i = Mathf.Abs(Vector2.Dot(n_i, Vector2.up));
-                bool isFloorOrCeiling_i = upDot_i > 0.6f; // threshold; tweak if needed
+                bool isFloorOrCeiling_i = upDot_i > 0.6f;
                 bool isWall_i = !isFloorOrCeiling_i;
 
                 hasWall |= isWall_i;
                 hasFloorOrCeiling |= isFloorOrCeiling_i;
 
-                // For corner movement, we still want a wall tangent and a floor tangent even if one of them
-                // is not perfectly aligned with the force. Corners often have one contact with low score.
+                // For corner movement, still get the tangent and a floor tangent even if one of them is not perfectly aligned with the force.
                 if (score >= attachThreshold)
                 {
                     if (isWall_i && score > bestWallScore)
@@ -138,8 +137,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    // Fallback: keep a reasonable wall/floor choice for corners even if score is below threshold
-                    // (prevents losing left/right control at wall+ceiling intersections)
+                    // prevents losing left/right control at wall+ceiling intersections
                     if (isWall_i && bestWallIndex < 0)
                         bestWallIndex = i;
                     if (isFloorOrCeiling_i && bestFloorIndex < 0)
@@ -158,7 +156,7 @@ public class PlayerController : MonoBehaviour
 
             //Calculate the surface using dot product to determine whether player is on wall or floor
             float upDot = Mathf.Abs(Vector2.Dot(n, Vector2.up));
-            bool isFloorOrCeiling = upDot > 0.6f; // threshold; tweak if needed
+            bool isFloorOrCeiling = upDot > 0.6f;
             bool isWall = !isFloorOrCeiling;
 
             Vector2 tangent = Vector2.Perpendicular(n).normalized;
@@ -173,8 +171,7 @@ public class PlayerController : MonoBehaviour
             // Calculate and apply the crawl force to the player
             Vector2 crawlForce = tangent * axisInput * CRAWL_SPEED;
 
-            // If we have both a wall and a floor/ceiling contact (corner), allow BOTH axes explicitly.
-            // This guarantees left/right is not blocked just because the "bestIndex" surface is a wall.
+            // If there is both a wall and a floor/ceiling contact (corner), allow BOTH axes explicitly.
             if (hasWall && hasFloorOrCeiling)
             {
                 Vector2 wallTangent = Vector2.zero;
@@ -187,7 +184,7 @@ public class PlayerController : MonoBehaviour
 
                     Vector2 n_i = contacts[i].normal.normalized;
                     float upDot_i = Mathf.Abs(Vector2.Dot(n_i, Vector2.up));
-                    bool isFloorOrCeiling_i = upDot_i > 0.6f; // threshold; tweak if needed
+                    bool isFloorOrCeiling_i = upDot_i > 0.6f;
                     bool isWall_i = !isFloorOrCeiling_i;
 
                     if (isWall_i && wallTangent == Vector2.zero)
@@ -206,7 +203,7 @@ public class PlayerController : MonoBehaviour
                         break;
                 }
 
-                // Build motion from axes directly (prevents projection canceling)
+                // Build motion from axes directly
                 Vector2 cornerMotion = Vector2.zero;
                 if (floorTangent != Vector2.zero) cornerMotion += floorTangent * _movementInput.x;
                 if (wallTangent != Vector2.zero) cornerMotion += wallTangent * _movementInput.y;
