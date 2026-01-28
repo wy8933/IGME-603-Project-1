@@ -10,9 +10,9 @@ public class BreakableBlock : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player")) 
         {
-            PlayerForceReceiver forceReciver = collision.gameObject.GetComponent<PlayerForceReceiver>();
+            float velocity = collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity.magnitude;
 
-            if (forceReciver.GetForce().magnitude >= requireForce) 
+            if (velocity >= requireForce) 
             {
                 Destroy(gameObject);
             }
