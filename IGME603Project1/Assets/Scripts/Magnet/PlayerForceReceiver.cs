@@ -114,7 +114,6 @@ public class PlayerForceReceiver : MonoBehaviour
         // This is important when multiple colliders exist under one object.
         if (field != null && field.fieldState != MagnetState.Neutral)
         {
-            Debug.Log(1);
             _touchingSurfaces.Add(collision.collider);
             _isTouchingSurface = true;
         }

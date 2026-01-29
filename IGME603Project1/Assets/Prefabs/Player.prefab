@@ -168,7 +168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7431226234160387019}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.18, y: 2.84, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
@@ -220,7 +220,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ed4e19f6955308e498a4e41d75bbbd0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerController: {fileID: 1944829700286884628}
-  maxTotalForce: 1000
+  maxTotalForce: 10000
 --- !u!114 &1944829700286884628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,8 +321,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MAGNET_JOYSTICK_THRESHOLD: 0.1
-  CRAWL_SPEED: 100
+  CRAWL_SPEED: 10
   _magnetState: 0
+  WALL_GRAVITY_SCALE: 0
+  NORMAL_GRAVITY_SCALE: 0.1
+  playerPositive: {fileID: 21300000, guid: 6207984066bec3945b0c7b47efead7cf, type: 3}
+  PlayerNeutral: {fileID: 21300000, guid: ed4e19f6955308e498a4e41d75bbbd0a, type: 3}
+  playerNegative: {fileID: 21300000, guid: 35bfe267c4e2b084b9d9aa34c29b3712, type: 3}
 --- !u!114 &6035457589548194279
 MonoBehaviour:
   m_ObjectHideFlags: 0
