@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -108,10 +109,12 @@ public class PlayerForceReceiver : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        MagnetField2D field = collision.gameObject.GetComponentInChildren<MagnetField2D>();
         // Use the specific collider from the collision rather than the whole GameObject.
         // This is important when multiple colliders exist under one object.
-        if (collision.collider != null && collision.collider.CompareTag("Surface"))
+        if (field != null && field.fieldState != MagnetState.Neutral)
         {
+            Debug.Log(1);
             _touchingSurfaces.Add(collision.collider);
             _isTouchingSurface = true;
         }
@@ -119,8 +122,9 @@ public class PlayerForceReceiver : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        MagnetField2D field = collision.gameObject.GetComponentInChildren<MagnetField2D>();
         // Ensures we remain "touching" even if Enter/Exit events happen at seams.
-        if (collision.collider != null && collision.collider.CompareTag("Surface"))
+        if (field!=null && field.fieldState != MagnetState.Neutral)
         {
             _touchingSurfaces.Add(collision.collider);
             _isTouchingSurface = true;
@@ -129,10 +133,21 @@ public class PlayerForceReceiver : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider != null && collision.collider.CompareTag("Surface"))
+        MagnetField2D field = collision.gameObject.GetComponentInChildren<MagnetField2D>();
+        if (field != null && field.fieldState != MagnetState.Neutral)
         {
             _touchingSurfaces.Remove(collision.collider);
             _isTouchingSurface = _touchingSurfaces.Count > 0;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        MagnetField2D field = other.GetComponentInChildren<MagnetField2D>();
+        if (field!=null)
+        {
+            if (!_activeFields.Contains(field))
+                _activeFields.Add(field);
         }
     }
 }

@@ -6,9 +6,6 @@ public class MagnetField2D : MonoBehaviour
 {
     public MagnetState fieldState = MagnetState.Positive;
 
-    [Range(-180f, 180f)]
-    public float pushDirectionAngleDeg = 0f;
-
     [Header("Force Settings")]
     [Min(0.01f)] public float effectRadius = 3f;
     [Min(0f)] public float baseStrength = 20f;
@@ -31,6 +28,20 @@ public class MagnetField2D : MonoBehaviour
         _trigger.radius = effectRadius;
     }
 
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (_trigger == null) _trigger = GetComponent<CircleCollider2D>();
+
+        if (_trigger != null)
+        {
+            _trigger.isTrigger = true;
+
+            if (autoSyncTriggerRadius)
+                _trigger.radius = Mathf.Max(0.01f, effectRadius);
+        }
+    }
+#endif
 
     public Vector2 ComputeForce(Vector2 playerPos, MagnetState playerState)
     {
@@ -68,18 +79,5 @@ public class MagnetField2D : MonoBehaviour
 
         float mag = baseStrength * t;
         return dir * mag;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, effectRadius);
-
-        // Visualize push direction arrow
-        float rad = pushDirectionAngleDeg * Mathf.Deg2Rad;
-        Vector3 arrowDir = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0f);
-
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(transform.position, transform.position + arrowDir * Mathf.Min(effectRadius, 1.5f));
     }
 }
