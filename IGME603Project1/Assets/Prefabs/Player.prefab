@@ -220,7 +220,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ed4e19f6955308e498a4e41d75bbbd0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -325,6 +325,9 @@ MonoBehaviour:
   _magnetState: 0
   WALL_GRAVITY_SCALE: 0
   NORMAL_GRAVITY_SCALE: 0.1
+  playerPositive: {fileID: 21300000, guid: 6207984066bec3945b0c7b47efead7cf, type: 3}
+  PlayerNeutral: {fileID: 21300000, guid: ed4e19f6955308e498a4e41d75bbbd0a, type: 3}
+  playerNegative: {fileID: 21300000, guid: 35bfe267c4e2b084b9d9aa34c29b3712, type: 3}
 --- !u!114 &6035457589548194279
 MonoBehaviour:
   m_ObjectHideFlags: 0

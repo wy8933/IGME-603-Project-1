@@ -8,6 +8,8 @@ public class ShiftingMagnet : MagnetField2D
 
     public SpriteRenderer sprite;
 
+    public Sprite positiveSprite;
+    public Sprite negativeSprite;
     public void Update()
     {
         currentTimer += Time.deltaTime;
@@ -19,12 +21,12 @@ public class ShiftingMagnet : MagnetField2D
             if (fieldState == MagnetState.Positive)
             {
                 fieldState = MagnetState.Negative;
-                sprite.color = Color.blue;
+                sprite.sprite = negativeSprite;
             }
             else 
             {
                 fieldState = MagnetState.Positive;
-                sprite.color = Color.red;
+                sprite.sprite = positiveSprite;
             }
         }
     }

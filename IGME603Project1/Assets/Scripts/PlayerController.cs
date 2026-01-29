@@ -24,6 +24,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float WALL_GRAVITY_SCALE = 0f;
     [SerializeField] private float NORMAL_GRAVITY_SCALE = 0.1f;
 
+    [Header("Player Sprite")]
+    public Sprite playerPositive;
+    public Sprite PlayerNeutral;
+    public Sprite playerNegative;
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -44,13 +49,13 @@ public class PlayerController : MonoBehaviour
         switch(ms)
         {
             case MagnetState.Positive:
-                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                gameObject.GetComponent<SpriteRenderer>().sprite = playerPositive;
                 break;
             case MagnetState.Negative:
-                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                gameObject.GetComponent<SpriteRenderer>().sprite = playerNegative;
                 break;
             default:
-                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                gameObject.GetComponent<SpriteRenderer>().sprite = PlayerNeutral;
                 break;
         }
     }

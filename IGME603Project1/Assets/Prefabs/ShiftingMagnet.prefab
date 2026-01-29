@@ -88,6 +88,8 @@ MonoBehaviour:
   autoSyncTriggerRadius: 1
   shiftingCD: 3
   sprite: {fileID: 5487214048819922444}
+  positiveSprite: {fileID: 21300000, guid: 6b4959e7037d2024b9be3cd5966d3c10, type: 3}
+  negativeSprite: {fileID: 21300000, guid: c8554ff189dce8f44b40f799d76e8356, type: 3}
 --- !u!1 &7911846464160366220
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,8 +168,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0.4949932, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c8554ff189dce8f44b40f799d76e8356, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
