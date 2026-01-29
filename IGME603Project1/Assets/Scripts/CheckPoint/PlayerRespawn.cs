@@ -28,7 +28,7 @@ public class PlayerRespawn : MonoBehaviour
     }
 
     // Logic to move player back to the checkpoint
-    void Respawn()
+    public void Respawn()
     {
         transform.position = currentRespawnPoint;
 
