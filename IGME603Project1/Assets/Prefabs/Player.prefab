@@ -168,7 +168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7431226234160387019}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.18, y: 2.84, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerController: {fileID: 1944829700286884628}
-  maxTotalForce: 1000
+  maxTotalForce: 10000
 --- !u!114 &1944829700286884628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,8 +321,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MAGNET_JOYSTICK_THRESHOLD: 0.1
-  CRAWL_SPEED: 100
+  CRAWL_SPEED: 10
   _magnetState: 0
+  WALL_GRAVITY_SCALE: 0
+  NORMAL_GRAVITY_SCALE: 0.1
 --- !u!114 &6035457589548194279
 MonoBehaviour:
   m_ObjectHideFlags: 0
