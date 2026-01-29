@@ -19,7 +19,7 @@ public class KillPlayer : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            float speed = collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity.magnitude;
+            float speed = collision.relativeVelocity.magnitude;
             if (speed < requiredForce) //if this entity would NOT be broken by the force
             {
                 PlayerRespawn respawner = collision.gameObject.GetComponent<PlayerRespawn>();
