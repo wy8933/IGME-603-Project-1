@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 1944829700286884628}
   - component: {fileID: 6035457589548194279}
   - component: {fileID: 2349208347494280583}
+  - component: {fileID: 3539805618660255369}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -425,6 +426,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 83b8fb41-fd6e-4285-8032-d0396b3cb8f5
     m_ActionName: Player/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3539805618660255369}
+        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3422de19-b004-4771-be09-32ebe1a44d65
+    m_ActionName: 'Player/Exit[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -440,5 +457,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a55b7d80d59138e488cb451475c98289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3539805618660255369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7431226234160387019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b1504eeb9a56d469d28b1c23b30f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
