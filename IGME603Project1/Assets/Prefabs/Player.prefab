@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 6035457589548194279}
   - component: {fileID: 2349208347494280583}
   - component: {fileID: 3539805618660255369}
+  - component: {fileID: 5316836267797547383}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -471,3 +472,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b1504eeb9a56d469d28b1c23b30f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5316836267797547383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7431226234160387019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e74537b74ccf84c83128e3b5f446b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerController: {fileID: 0}
+  orbitEnabled: 1
+  orbitSpeed: 6
+  orbitRadius: 0
+  clockwise: 1
+  radialCorrectionGain: 3
+  maxAcceleration: 40
+  requireOrbitFieldTrigger: 1
